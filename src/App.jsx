@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Product from './components/Product/Product.jsx';
+import SearchField from './components/SearchField/SearchField.jsx';
+import ProductsList from './components/ProductsList/ProductsList.jsx';
 import Pagination from './components/Pagination/Pagination.jsx';
 import data_products from './products.json';
-import {Grid, Row, Col, ControlLabel, FormControl} from 'react-bootstrap';
+import {Grid} from 'react-bootstrap';
 import './App.css';
 
 class App extends Component {
@@ -34,39 +36,9 @@ class App extends Component {
   render() {
     return (
       <Grid>
-        <Row className="justify-content-center align-items-center my-3">
-          <Col xs={6}>
-            <ControlLabel>Search:</ControlLabel>
-          </Col>
-          <Col xs={6}>
-            <FormControl
-              type="text"
-              placeholder="Enter text"
-              onChange={this.handleSearch}
-            />
-          </Col>
-        </Row>
-        <Row>
-          {
-            this.state.pageOfItems.map(product => 
-              <Col xs={12} md={4}>
-                <Product 
-                  name={product.name} 
-                  category={product.bsr_category}
-                  price={product.price}
-                  asin={product.asin}
-                  img={product.img}  
-                  link={product.link}
-                />
-              </Col>
-            )
-          }
-        </Row>
-        <Row className="justify-content-center">
-          <Col xs={12}>
-            <Pagination items={this.state.products} onChangePage={this.onChangePage}/>
-          </Col>
-        </Row>
+        <SearchField handleSearch={this.handleSearch}/>
+        <ProductsList pageOfItems={this.state.pageOfItems}/>
+        <Pagination items={this.state.products} onChangePage={this.onChangePage}/>
       </Grid>
     );
   }

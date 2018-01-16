@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Pager} from "react-bootstrap"; 
+import {Pager, Row, Col} from "react-bootstrap"; 
 import _ from 'lodash';
 import "./Pagination.css";
 
@@ -100,25 +100,29 @@ class Pagination extends React.Component {
         }
  
         return (
-            <Pager className="pagination">
-                <Pager.Item className={pager.currentPage === 1 ? 'disabled' : ''}>
-                    <a className="page-link" onClick={() => this.setPage(1)}>First</a>
-                </Pager.Item>
-                <Pager.Item className={pager.currentPage === 1 ? 'disabled' : ''}>
-                    <a className="page-link" onClick={() => this.setPage(pager.currentPage - 1)}>Previous</a>
-                </Pager.Item>
-                {pager.pages.map((page, index) =>
-                    <Pager.Item key={index} className={pager.currentPage === page ? 'active' : ''}>
-                        <a className="page-link" onClick={() => this.setPage(page)}>{page}</a>
-                    </Pager.Item>
-                )}
-                <Pager.Item className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                    <a className="page-link" onClick={() => this.setPage(pager.currentPage + 1)}>Next</a>
-                </Pager.Item>
-                <Pager.Item className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                    <a className="page-link" onClick={() => this.setPage(pager.totalPages)}>Last</a>
-                </Pager.Item>
-            </Pager>
+            <Row className="justify-content-center">
+                <Col xs={12}>
+                    <Pager className="pagination">
+                        <Pager.Item className={pager.currentPage === 1 ? 'disabled' : ''}>
+                            <a className="page-link" onClick={() => this.setPage(1)}>First</a>
+                        </Pager.Item>
+                        <Pager.Item className={pager.currentPage === 1 ? 'disabled' : ''}>
+                            <a className="page-link" onClick={() => this.setPage(pager.currentPage - 1)}>Previous</a>
+                        </Pager.Item>
+                        {pager.pages.map((page, index) =>
+                            <Pager.Item key={index} className={pager.currentPage === page ? 'active' : ''}>
+                                <a className="page-link" onClick={() => this.setPage(page)}>{page}</a>
+                            </Pager.Item>
+                        )}
+                        <Pager.Item className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
+                            <a className="page-link" onClick={() => this.setPage(pager.currentPage + 1)}>Next</a>
+                        </Pager.Item>
+                        <Pager.Item className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
+                            <a className="page-link" onClick={() => this.setPage(pager.totalPages)}>Last</a>
+                        </Pager.Item>
+                    </Pager>
+                </Col>
+            </Row>
         );
     }
 }

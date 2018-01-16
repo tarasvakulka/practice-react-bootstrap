@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {Panel} from 'react-bootstrap';
 import './Product.css';
 
@@ -21,4 +22,12 @@ class Product extends Component {
   }
 }
 
+Product.PropTypes = {
+  name: PropTypes.string,
+  category: PropTypes.string,
+  price: PropTypes.string,
+  asin: PropTypes.string,
+  img: PropTypes.string,
+  link: PropTypes.string
+}
 export default Product;
