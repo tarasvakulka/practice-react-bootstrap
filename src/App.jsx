@@ -5,7 +5,7 @@ import ProductsList from './components/ProductsList/ProductsList.jsx';
 import Pagination from './components/Pagination/Pagination.jsx';
 import SortProducts from './components/SortProducts/SortProducts.jsx';
 import data_products from './products.json';
-import {HashRouter, Route, Switch, Link} from "react-router-dom";
+import {HashRouter, Route, Switch} from "react-router-dom";
 import {Grid, Col, Row} from 'react-bootstrap';
 import './App.css';
 
@@ -46,12 +46,11 @@ class App extends Component {
         <SortProducts match={props.match} products={this.state.products}/>
       );
     }
-    console.log(this.props.match);
     return (
       <Grid>
         <Row className="justify-content-center align-items-center">
           <Col xs={6} className="align-items-center">
-            <a className="btn btn-primary mr-5" href="#" >Main Paige</a>
+            <a className="btn btn-primary mr-5" href="/#" >Main Paige</a>
           </Col>
           <Col xs={6}>
             <SearchField handleSearch={this.handleSearch}/>
