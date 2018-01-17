@@ -14,13 +14,32 @@ class App extends Component {
     super(props);
     this.state = {
         products: data_products.products,
-        pageOfItems: []
+        pageOfItems: [],
+        valueinput: sessionStorage.getItem('inputvalue'),
+        paginationView: true
     }
     this.handleSearch = this.handleSearch.bind(this);
     this.onChangePage = this.onChangePage.bind(this);
   }
+  componentWillUpdate(nextProps) {
+    const currentRoute = nextProps.location.pathname;
+    if(currentRoute.indexOf('/category')!==-1) {
+      if(this.state.paginationView===true) {
+        this.setState({paginationView: false});
+      }
+    } else {
+      if(this.state.paginationView===false) {
+        this.setState({paginationView: true});
+      }
+    }
+  }
+  componentDidMount() {
+    this.handleSearch();
+  }
   handleSearch(e) {
-    var searchQuery = e.target.value.toLowerCase();
+    var searchQuery =  e ? e.target.value.toLowerCase() : this.state.valueinput;
+    sessionStorage.setItem('inputvalue', `${searchQuery}`);
+    this.setState({valueinput: searchQuery});
     var displayedProducts = data_products.products.filter(function(el) {
         var searchValue = el.name.toLowerCase();
         return searchValue.indexOf(searchQuery) !== -1;
@@ -53,28 +72,31 @@ class App extends Component {
             <a className="btn btn-primary mr-5" href="/#" >Main Paige</a>
           </Col>
           <Col xs={6}>
-            <SearchField handleSearch={this.handleSearch}/>
+            <SearchField inputvalue={this.state.valueinput} handleSearch={this.handleSearch}/>
           </Col>
         </Row>
         <Row>
           <Col xs={3}>
-            <CategoryList products={this.state.products} />
+            <CategoryList products={this.state.products}/>
           </Col>
           <Col xs={9}>
             <HashRouter>
               <Switch>
                   <Route exact path="/" render={MainProducts}/>
-                  <Route path="/category/:id" render={MySortProducts}/>
+                  <Route path="/category/:id" render={MySortProducts} />
               </Switch>
             </HashRouter>
             
           </Col>
         </Row>
-        <Row className="justify-content-center">
-          <Col xs={12}>
-            <Pagination items={this.state.products} onChangePage={this.onChangePage}/>
-          </Col>
-        </Row>
+        {
+          this.state.paginationView ?
+          <Row className="justify-content-center">
+            <Col xs={12}>
+              <Pagination items={this.state.products} onChangePage={this.onChangePage}/>
+            </Col>
+          </Row> : <Row className="my-3"></Row>
+        }
         
       </Grid>
     );
