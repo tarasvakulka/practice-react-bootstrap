@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Product from "../Product/Product.jsx";
-import './SortProductsList.css';
+import './SortProducts.css';
 import {Row, Col} from 'react-bootstrap';
 
-class SortProductsList extends Component {
+class SortProducts extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,7 +41,7 @@ class SortProductsList extends Component {
   }
 }
 
-SortProductsList.propTypes = {
+SortProducts.propTypes = {
     products: PropTypes.array
 }
-export default SortProductsList;
+export default SortProducts;

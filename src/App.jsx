@@ -3,7 +3,7 @@ import SearchField from './components/SearchField/SearchField.jsx';
 import CategoryList from './components/CategoryList/CategoryList.jsx';
 import ProductsList from './components/ProductsList/ProductsList.jsx';
 import Pagination from './components/Pagination/Pagination.jsx';
-import SortProductsList from './components/SortProductsList/SortProductsList.jsx';
+import SortProducts from './components/SortProducts/SortProducts.jsx';
 import data_products from './products.json';
 import {HashRouter, Route, Switch, Link} from "react-router-dom";
 import {Grid, Col, Row} from 'react-bootstrap';
@@ -36,14 +36,14 @@ class App extends Component {
     window.scrollTo(0,0);
   }
   render() {
-    const MainProductsList = (props) => {
+    const MainProducts = (props) => {
       return (
         <ProductsList pageOfItems={this.state.pageOfItems}/>
       );
     }
-    const MySortProductsList = (props) => {
+    const MySortProducts = (props) => {
       return (
-        <SortProductsList match={props.match} products={this.state.products}/>
+        <SortProducts match={props.match} products={this.state.products}/>
       );
     }
     console.log(this.props.match);
@@ -64,8 +64,8 @@ class App extends Component {
           <Col xs={9}>
             <HashRouter>
               <Switch>
-                  <Route exact path="/" render={MainProductsList}/>
-                  <Route path="/category/:id" render={MySortProductsList}/>
+                  <Route exact path="/" render={MainProducts}/>
+                  <Route path="/category/:id" render={MySortProducts}/>
               </Switch>
             </HashRouter>
             
