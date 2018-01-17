@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Product from "../Product/Product.jsx";
-import './ProductList.css';
+import './SortProductsList.css';
 import {Row, Col} from 'react-bootstrap';
 
-class ProductsList extends Component {
+class SortProductsList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sortproducts: []
+    }
+  }
   render() {
+    let products = this.props.products;
+    let temp_products = [];
+    for (let i=0; i<products.length; i++){
+        if(products[i].bsr_category===this.props.match.params.id){
+            temp_products.push(products[i]);
+        }
+    }
     var temp_key = 0;
     return (
         <Row className="product-list">
           { 
-            this.props.pageOfItems.map(product =>
+            temp_products.map(product =>
                 <Col key={temp_key++} xs={12} md={4}>
                   <Product 
                     name={product.name} 
@@ -28,7 +41,7 @@ class ProductsList extends Component {
   }
 }
 
-ProductsList.propTypes = {
-    pageOfItems: PropTypes.array
+SortProductsList.propTypes = {
+    products: PropTypes.array
 }
-export default ProductsList;
+export default SortProductsList;

@@ -103,22 +103,22 @@ class Pagination extends React.Component {
             <Row className="justify-content-center">
                 <Col xs={12}>
                     <Pager className="pagination">
-                        <Pager.Item className={pager.currentPage === 1 ? 'disabled' : ''}>
-                            <a className="page-link" onClick={() => this.setPage(1)}>First</a>
+                        <Pager.Item className={pager.currentPage === 1 ? 'disabled page-link' : 'page-link'} onClick={() => this.setPage(1)}>
+                            First
                         </Pager.Item>
-                        <Pager.Item className={pager.currentPage === 1 ? 'disabled' : ''}>
-                            <a className="page-link" onClick={() => this.setPage(pager.currentPage - 1)}>Previous</a>
+                        <Pager.Item className={pager.currentPage === 1 ? 'disabled page-link' : 'page-link'} onClick={() => this.setPage(pager.currentPage - 1)}>
+                            Previous
                         </Pager.Item>
                         {pager.pages.map((page, index) =>
-                            <Pager.Item key={index} className={pager.currentPage === page ? 'active' : ''}>
-                                <a className="page-link" onClick={() => this.setPage(page)}>{page}</a>
+                            <Pager.Item key={index} className={pager.currentPage === page ? 'active page-link' : 'page-link'} onClick={() => this.setPage(page)}>
+                                {page}
                             </Pager.Item>
                         )}
-                        <Pager.Item className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                            <a className="page-link" onClick={() => this.setPage(pager.currentPage + 1)}>Next</a>
+                        <Pager.Item className={pager.currentPage === pager.totalPages ? 'disabled page-link' : 'page-link'} onClick={() => this.setPage(pager.currentPage + 1)}>
+                            Next
                         </Pager.Item>
-                        <Pager.Item className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                            <a className="page-link" onClick={() => this.setPage(pager.totalPages)}>Last</a>
+                        <Pager.Item className={pager.currentPage === pager.totalPages ? 'disabled page-link' : 'page-link'} onClick={() => this.setPage(pager.totalPages)}>
+                            Last
                         </Pager.Item>
                     </Pager>
                 </Col>

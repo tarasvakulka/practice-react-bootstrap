@@ -8,8 +8,8 @@ class Product extends Component {
     return (
         <Panel>
           <Panel.Body>
-            <img src={this.props.img}/>
-            <a target="_blank" href={this.props.link}><i class="material-icons">add</i></a>
+            <img alt="some_img" src={this.props.img}/>
+            <a target="_blank" href={this.props.link}><i className="material-icons">add</i></a>
           </Panel.Body>
           <Panel.Footer>
             <p>{ this.props.name }</p>
@@ -22,7 +22,7 @@ class Product extends Component {
   }
 }
 
-Product.PropTypes = {
+Product.propTypes = {
   name: PropTypes.string,
   category: PropTypes.string,
   price: PropTypes.string,

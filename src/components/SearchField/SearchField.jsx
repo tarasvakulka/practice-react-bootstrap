@@ -21,7 +21,7 @@ class SearchField extends Component {
   }
 }
 
-SearchField.PropTypes = {
+SearchField.propTypes = {
     onChange: PropTypes.func
 }
 export default SearchField;
