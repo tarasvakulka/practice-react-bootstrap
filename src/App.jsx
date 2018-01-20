@@ -4,7 +4,8 @@ import CategoryList from './components/CategoryList/CategoryList.jsx';
 import ProductsList from './components/ProductsList/ProductsList.jsx';
 import Pagination from './components/Pagination/Pagination.jsx';
 import SortProducts from './components/SortProducts/SortProducts.jsx';
-import data_products from './products.json';
+import { getAllProducts } from './actions/index.js'
+import { connect } from 'react-redux';
 import {HashRouter, Route, Switch} from "react-router-dom";
 import {Grid, Col, Row} from 'react-bootstrap';
 import './App.css';
@@ -13,13 +14,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        products: data_products.products,
+        products: this.props.productsList,
         pageOfItems: [],
         valueinput: sessionStorage.getItem('inputvalue'),
         paginationView: true
     }
     this.handleSearch = this.handleSearch.bind(this);
     this.onChangePage = this.onChangePage.bind(this);
+    this.props.onGetProducts();
+  
   }
   componentWillUpdate(nextProps) {
     const currentRoute = nextProps.location.pathname;
@@ -33,19 +36,25 @@ class App extends Component {
       }
     }
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.productsList !== prevProps.productsList) {
+        this.setState({products: this.props.productsList});
+        this.handleSearch();
+    }
+}
   componentDidMount() {
     this.handleSearch();
   }
   handleSearch(e) {
-    var searchQuery =  e ? e.target.value.toLowerCase() : this.state.valueinput;
+    var searchQuery =  e ? e.target.value.toLowerCase() : (this.state.valueinput || '');
     sessionStorage.setItem('inputvalue', `${searchQuery}`);
     this.setState({valueinput: searchQuery});
-    var displayedProducts = data_products.products.filter(function(el) {
+    var displayedProducts = this.props.productsList.filter(function(el) {
         var searchValue = el.name.toLowerCase();
         return searchValue.indexOf(searchQuery) !== -1;
     });
     if (displayedProducts.length === 0){
-      this.setState({products: data_products.products});
+      this.setState({products: this.props.productsList});
     } else {
       this.setState({products: displayedProducts});
     }
@@ -62,7 +71,7 @@ class App extends Component {
     }
     const MySortProducts = (props) => {
       return (
-        <SortProducts match={props.match} products={this.state.products}/>
+        <SortProducts match={props.match} products={this.props.productsList}/>
       );
     }
     return (
@@ -77,7 +86,7 @@ class App extends Component {
         </Row>
         <Row>
           <Col xs={3}>
-            <CategoryList products={this.state.products}/>
+            <CategoryList products={this.props.productsList}/>
           </Col>
           <Col xs={9}>
             <HashRouter>
@@ -103,4 +112,13 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(
+  state => ({
+    productsList: state
+  }),
+  dispatch => ({
+    onGetProducts: () => {
+      dispatch(getAllProducts());
+    }
+  })
+)(App);

@@ -9,15 +9,17 @@ class CategoryList extends Component {
             categories: []
         }
     }
-    componentWillMount() {
-        let products = this.props.products;
-        let temp_categories = [];
-        for (let i=0; i<products.length; i++){
-            if(!temp_categories.find(category => category===products[i].bsr_category)){
-                temp_categories.push(products[i].bsr_category);
+    componentWillUpdate(nextProps, nextState) {
+        if(this.props.products !== nextProps.products) {
+            let products = nextProps.products;
+            let temp_categories = [];
+            for (let i=0; i<products.length; i++){
+                if(!temp_categories.find(category => category===products[i].bsr_category)){
+                    temp_categories.push(products[i].bsr_category);
+                }
             }
+            this.setState({categories: temp_categories});
         }
-        this.setState({categories: temp_categories});
     }
     
     render() {
